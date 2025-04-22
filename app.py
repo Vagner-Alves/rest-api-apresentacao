@@ -5,12 +5,12 @@ app = Flask(__name__)
 # Armazenamento em memória
 items = {}
 
-# GET todos os itens
+# METHOD GET
 @app.route('/items', methods=['GET'])
 def get_items():
     return jsonify(items), 200
 
-# GET um item específico
+# METHOD GET ITEM ESPECIFICO
 @app.route('/items/<item_id>', methods=['GET'])
 def get_item(item_id):
     item = items.get(item_id)
@@ -18,7 +18,7 @@ def get_item(item_id):
         return jsonify({item_id: item}), 200
     return jsonify({"erro": "Item não encontrado"}), 404
 
-# POST - Criar novo item
+# METHOD POST - Criar novo item
 @app.route('/items', methods=['POST'])
 def create_item():
     data = request.get_json()
@@ -39,7 +39,7 @@ def create_item():
     items[item_id] = item
     return jsonify({item_id: item}), 201
 
-# PUT - Atualizar item existente
+# METHOD PUT - Atualizar item existente
 @app.route('/items/<item_id>', methods=['PUT'])
 def update_item(item_id):
     if item_id not in items:
@@ -54,7 +54,7 @@ def update_item(item_id):
 
     return jsonify({item_id: item}), 200
 
-# DELETE - Deletar item
+# METHOD DELETE - Deletar item
 @app.route('/items/<item_id>', methods=['DELETE'])
 def delete_item(item_id):
     if item_id in items:
